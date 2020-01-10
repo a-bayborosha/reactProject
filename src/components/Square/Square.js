@@ -18,14 +18,15 @@ const styles = {
 }
 
 
-function Square(props){
+
+export default function Square(props){
     return(
         <button 
             //css styles constant
             style={styles}
             //class name assignment
             className='square' 
-            //passing down onClick-propperties, that contained a function from parent component
+            //passing down onClick-propperties, that contained a function 'handleClick()' from parent component
             onClick={props.onClick}
         >
             {/* return what should be rendered */}
@@ -33,5 +34,3 @@ function Square(props){
         </button>
         )
 }
-
-export default Square
