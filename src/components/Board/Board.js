@@ -7,7 +7,8 @@ class Board extends React.Component {
         super(props)
 
         this.state = {
-            squares: Array(9).fill(null)
+            squares: Array(9).fill(null),
+            xIsNext: true
         }
     }
 
@@ -15,10 +16,13 @@ class Board extends React.Component {
     handleClick(i) {
         //create copy of the squares array
         const squares = this.state.squares.slice()
-        //assigne a new value to [i]- ellement of coppied array
-        squares[i] = 'X'
+        //assigne the xIsNext actual value to [i]- ellement of coppied array 
+        squares[i] = this.state.xIsNext ? 'X' : 'O'
         //renew the state
-        this.setState({squares})
+        this.setState({
+                        squares,
+                        xIsNext: !this.state.xIsNext})
+        
     }
 
     //rendering Square component
@@ -29,7 +33,7 @@ class Board extends React.Component {
                 />
     }
     render() {
-    const status = 'Next player: X'
+    const status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O')
 
         return(
             <div>

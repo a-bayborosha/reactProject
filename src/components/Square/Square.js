@@ -21,11 +21,15 @@ const styles = {
 function Square(props){
     return(
         <button 
+            //css styles constant
             style={styles}
+            //class name assignment
             className='square' 
+            //passing down onClick-propperties, that contained a function from parent component
             onClick={props.onClick}
         >
-            {props.value}
+            {/* return what should be rendered */}
+            {props.value} 
         </button>
         )
 }
