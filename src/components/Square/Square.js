@@ -13,14 +13,20 @@ const styles = {
     marginTop: '-1px',
     padding: 0,
     textAlign: 'center',
-    width: '34px'
+    width: '34px',
+    cursor: 'pointer'
 }
 
 class Square extends React.Component {
     render() {
+        
         return(
             
-           <button className='square' style={styles}>
+           <button 
+                style={styles}
+                className='square' 
+                onClick={() => this.props.onClick()}
+            >
                {this.props.value}
            </button>
         
