@@ -17,9 +17,9 @@ class Game extends React.Component {
 
   //by Mouse click on Square component
   handleClick(i) {
-    //const history <= current state of squares array
+    //const history <= current state of Squares on the Board
     const history = this.state.history
-    //
+    
     const current = history[history.length - 1]
     //create copy of the squares array
     const squares = current.squares.slice()
