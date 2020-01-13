@@ -2,7 +2,7 @@ import React from 'react'
 import Square from '../Square/Square'
 import './Board.css'
 
-class Board extends React.Component {
+export default class Board extends React.Component {
     
      //rendering Square component
     renderSquare(i) {
@@ -42,4 +42,3 @@ class Board extends React.Component {
 
 
 
-export default Board

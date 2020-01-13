@@ -11,14 +11,15 @@ class Game extends React.Component {
       history: [{
         squares: Array(9).fill(null)
       }],
+      stepNumber: 0,
       xIsNext: true
     }
   }
 
   //by Mouse click on Square component
   handleClick(i) {
-    //const history <= current state of Squares on the Board
-    const history = this.state.history
+    //const history <= 
+    const history = this.state.history.slice(0, this.state.stepNumber + 1)
     
     const current = history[history.length - 1]
     //create copy of the squares array
@@ -34,14 +35,35 @@ class Game extends React.Component {
                     history: history.concat([{
                       squares
                     }]),
+                    stepNumber: history.length,
                     xIsNext: !this.state.xIsNext})
     
 }
+jumpTo(step) {
+  this.setState({
+    stepNumber: step,
+    xIsNext: (step % 2) === 0,
+  })
+}
 
   render () {
+    //const history <= adding array with changes of every move
     const history = this.state.history
-    const current = history[history.length - 1]
+    //acces to last board view (last move)
+    const current = history[this.state.stepNumber]
+    
     const winner = calculateWinner(current.squares);
+
+    const moves = history.map((step, move) => {
+      const desc = move       ?
+        'Go to move #' + move :
+        'Go to game start'
+        return (
+          <li key={move}>
+            <button onClick={() => {this.jumpTo(move)}}>{desc}</button>
+          </li>
+        )
+    })
 
     let status
     if (winner) {
@@ -60,7 +82,7 @@ class Game extends React.Component {
         </div>
         <div className='game-info'>
           <div>{status}</div>
-          <ol>{/* TODO */}</ol>
+          <ol>{moves}</ol>
         </div>
       </div>
     )
@@ -81,9 +103,12 @@ function calculateWinner(squares) {
   for(let i = 0; i < lines.length; i++) {
       const [a, b, c] = lines[i]
       if (squares[a] === squares[b] && squares[a] === squares[c]) {
+        //if 'X' or 'O' won
           return squares[a]
       }
+      
   }
+  //if no one won
   return null
 }
 
