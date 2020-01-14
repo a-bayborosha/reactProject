@@ -8,9 +8,11 @@ class Game extends React.Component {
     super(props)
 
     this.state = {
-      history: [{
+      history: [
+        {
         squares: Array(9).fill(null)
-      }],
+        }
+    ],
       stepNumber: 0,
       xIsNext: true
     }
@@ -18,9 +20,9 @@ class Game extends React.Component {
 
   //by Mouse click on Square component
   handleClick(i) {
-    //const history <= 
+    //const history <= previous board view as array
     const history = this.state.history.slice(0, this.state.stepNumber + 1)
-    
+    console.log(history, this.state.stepNumber + 1)
     const current = history[history.length - 1]
     //create copy of the squares array
     const squares = current.squares.slice()
@@ -33,7 +35,7 @@ class Game extends React.Component {
     //renew the state
     this.setState({
                     history: history.concat([{
-                      squares
+                      squares: squares
                     }]),
                     stepNumber: history.length,
                     xIsNext: !this.state.xIsNext})
@@ -47,14 +49,15 @@ jumpTo(step) {
 }
 
   render () {
-    //const history <= adding array with changes of every move
+    //const history <= adding array with changes of every move (starting before first move)
     const history = this.state.history
-    //acces to last board view (last move)
+    console.log(history)
+    //acces to last (current) board view (last move) (as Object)
     const current = history[this.state.stepNumber]
-    
+    console.log(current)
     const winner = calculateWinner(current.squares);
 
-    const moves = history.map((step, move) => {
+    const moves = history.map((step,move) => {
       const desc = move       ?
         'Go to move #' + move :
         'Go to game start'
@@ -102,7 +105,7 @@ function calculateWinner(squares) {
   ]
   for(let i = 0; i < lines.length; i++) {
       const [a, b, c] = lines[i]
-      if (squares[a] === squares[b] && squares[a] === squares[c]) {
+      if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
         //if 'X' or 'O' won
           return squares[a]
       }
