@@ -22,7 +22,8 @@ class Game extends React.Component {
   handleClick(i) {
     //const history <= previous board view as array
     const history = this.state.history.slice(0, this.state.stepNumber + 1)
-    console.log(history, this.state.stepNumber + 1)
+    //console.log(history, this.state.stepNumber + 1)
+
     const current = history[history.length - 1]
     //create copy of the squares array
     const squares = current.squares.slice()
@@ -34,11 +35,14 @@ class Game extends React.Component {
     squares[i] = this.state.xIsNext ? 'X' : 'O'
     //renew the state
     this.setState({
-                    history: history.concat([{
-                      squares: squares
-                    }]),
+                    history: history.concat([
+                      {
+                      squares
+                      }
+                    ]),
                     stepNumber: history.length,
-                    xIsNext: !this.state.xIsNext})
+                    xIsNext: !this.state.xIsNext
+                  })
     
 }
 jumpTo(step) {
@@ -63,14 +67,14 @@ jumpTo(step) {
         'Go to game start'
         return (
           <li key={move}>
-            <button onClick={() => {this.jumpTo(move)}}>{desc}</button>
+            <button onClick={() => this.jumpTo(move)}>{desc}</button>
           </li>
         )
     })
 
     let status
     if (winner) {
-        status = "Winner " + winner
+        status = "Winner: " + winner
     }   else {
         status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O')
     }
